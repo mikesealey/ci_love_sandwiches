@@ -111,6 +111,16 @@ def get_last_5_entries_sales():
         columns.append(column[-5:])
     return columns
 
+def get_stock_values(data):
+    """
+    Gets stock values
+    """
+    sheet = SHEET.worksheet("stock").get_all_values()
+    sandwiches = sheet[0]
+    quantities = sheet[-1]
+
+    tomorrow_list = dict(zip(sandwiches, quantities))
+    print(f"Make the following numbers of sandwiches for the next market: \n\n{tomorrow_list}")
 
 def main():
     """
@@ -127,6 +137,9 @@ def main():
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     print(stock_data)
+    stock_values = get_stock_values(stock_data)
+    print (stock_values)
+
 
 
 print("Welcome to Love Sandwiches Data Automation")
